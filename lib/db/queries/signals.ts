@@ -45,6 +45,22 @@ export async function getActiveSignals(): Promise<SignalRow[]> {
   return (data as SignalRow[]) ?? [];
 }
 
+/** Recent signal history for one pair (all statuses), newest first. */
+export async function listSignalsForPair(
+  pairId: string,
+  limit = 50
+): Promise<SignalRow[]> {
+  const { data, error } = await getServiceClient()
+    .from("signals")
+    .select("*")
+    .eq("pair_id", pairId)
+    .order("signal_ts", { ascending: false })
+    .limit(limit);
+
+  if (error) throw error;
+  return (data as SignalRow[]) ?? [];
+}
+
 export async function markEmailSent(signalId: string): Promise<void> {
   const { error } = await getServiceClient()
     .from("signals")

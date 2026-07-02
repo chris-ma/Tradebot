@@ -3,6 +3,7 @@ import {
   BacktestRunInsert,
   BacktestRunRow,
   BacktestTradeInsert,
+  BacktestTradeRow,
 } from "../types";
 
 export async function insertBacktestRun(
@@ -53,4 +54,28 @@ export async function listBacktestRuns(): Promise<BacktestRunRow[]> {
 
   if (error) throw error;
   return (data as BacktestRunRow[]) ?? [];
+}
+
+/** One backtest run by id - used by the trade-level drill-down page. */
+export async function getBacktestRun(id: string): Promise<BacktestRunRow | null> {
+  const { data, error } = await getServiceClient()
+    .from("backtest_runs")
+    .select("*")
+    .eq("id", id)
+    .maybeSingle();
+
+  if (error) throw error;
+  return (data as BacktestRunRow) ?? null;
+}
+
+/** All simulated trades for a backtest run, in entry order. */
+export async function getBacktestTrades(runId: string): Promise<BacktestTradeRow[]> {
+  const { data, error } = await getServiceClient()
+    .from("backtest_trades")
+    .select("*")
+    .eq("backtest_run_id", runId)
+    .order("entry_ts", { ascending: true });
+
+  if (error) throw error;
+  return (data as BacktestTradeRow[]) ?? [];
 }

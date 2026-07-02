@@ -1,0 +1,12 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/ingest-candles",
+      "schedule": "0 1,5,9,13,17,21 * * *"
+    },
+    {
+      "path": "/api/cron/rebacktest",
+      "schedule": "0 3 1 * *"
+    }
+  ]
+}

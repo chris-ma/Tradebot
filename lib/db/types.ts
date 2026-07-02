@@ -88,3 +88,7 @@ export interface BacktestTradeInsert {
   outcome: "win" | "loss";
   exit_reason: "stop" | "target" | "timeout";
 }
+
+export interface BacktestTradeRow extends BacktestTradeInsert {
+  id: string;
+}

@@ -32,3 +32,26 @@ export async function listActiveStrategies(): Promise<StrategyRow[]> {
   if (error) throw error;
   return (data as StrategyRow[]) ?? [];
 }
+
+export async function getStrategyById(id: string): Promise<StrategyRow | null> {
+  const { data, error } = await getServiceClient()
+    .from("strategies")
+    .select("*")
+    .eq("id", id)
+    .maybeSingle();
+
+  if (error) throw error;
+  return (data as StrategyRow) ?? null;
+}
+
+/** All strategy versions, including inactive - used to label historical runs. */
+export async function listStrategies(): Promise<StrategyRow[]> {
+  const { data, error } = await getServiceClient()
+    .from("strategies")
+    .select("*")
+    .order("name", { ascending: true })
+    .order("version", { ascending: false });
+
+  if (error) throw error;
+  return (data as StrategyRow[]) ?? [];
+}

@@ -1,9 +1,15 @@
 import { DateTime } from "luxon";
 import { getRecentCandles } from "../db/queries/candles";
-import { getLastSignalForPairDirection, insertSignal } from "../db/queries/signals";
+import {
+  getLastSignalForPairDirection,
+  insertSignal,
+  markEmailSent,
+} from "../db/queries/signals";
 import { getLatestBacktestRun } from "../db/queries/backtests";
+import { getPairById } from "../db/queries/pairs";
 import { StrategyRow } from "../db/queries/strategies";
 import { SignalRow } from "../db/types";
+import { sendSignalAlertEmail } from "../email/client";
 import { evaluateSignal } from "./rules";
 
 const DAILY_LOOKBACK = 260;
@@ -90,6 +96,20 @@ export async function evaluateAndPersistSignal(
     confidence_score: Math.round(confidenceScore * 100) / 100,
     status,
   });
+
+  // Engine-level guarantee: every high-conviction (active, above-threshold)
+  // signal triggers an email alert - suppressed/low-confidence signals never
+  // do. Email failures are logged but never fail signal persistence.
+  if (isHighConviction) {
+    try {
+      const pair = await getPairById(pairId);
+      if (!pair) throw new Error(`Pair ${pairId} not found for alert email`);
+      await sendSignalAlertEmail(signal, pair);
+      await markEmailSent(signal.id);
+    } catch (err) {
+      console.error(`Alert email failed for signal ${signal.id}:`, err);
+    }
+  }
 
   return { signal, isHighConviction };
 }
