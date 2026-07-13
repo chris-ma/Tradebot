@@ -1,6 +1,6 @@
-# Tradebot
+# Punter
 
-Tradebot is a forex swing-trading **advisory** web app. It ingests Daily and H4 candles for ten major pairs and crosses from OANDA, evaluates a two-timeframe confluence strategy (Daily EMA50/EMA200 regime + ADX trend-strength gate, H4 RSI trigger + MACD confirmation, ATR-sized stop/target), and surfaces the resulting buy/sell signals on a Tailwind-styled dashboard with email alerts for high-conviction setups. It never places orders - every signal is a recommendation backed by visible analysis and a backtested track record.
+Punter is a forex swing-trading **advisory** web app. It ingests Daily and H4 candles for ten major pairs and crosses from OANDA, evaluates a two-timeframe confluence strategy (Daily EMA50/EMA200 regime + ADX trend-strength gate, H4 RSI trigger + MACD confirmation, ATR-sized stop/target), and surfaces the resulting buy/sell signals on a Tailwind-styled dashboard with email alerts for high-conviction setups. It never places orders - every signal is a recommendation backed by visible analysis and a backtested track record.
 
 ## The "low temperature" design
 

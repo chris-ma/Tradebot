@@ -57,7 +57,7 @@ export function buildSignalAlertEmail({
   const rationale = buildRationaleLines(signal.indicator_snapshot, signal.direction);
   const pairUrl = `${baseUrl.replace(/\/$/, "")}/pairs/${pair.symbol}`;
 
-  const subject = `Tradebot: ${directionLabel} ${pair.display_name} - high conviction (${confidence}/100)`;
+  const subject = `Punter: ${directionLabel} ${pair.display_name} - high conviction (${confidence}/100)`;
 
   const text = [
     `High-conviction ${signal.direction.toUpperCase()} signal on ${pair.display_name} (${pair.symbol}).`,
@@ -75,7 +75,7 @@ export function buildSignalAlertEmail({
     ``,
     `Full chart and track record: ${pairUrl}`,
     ``,
-    `This is an advisory signal, not an order. Tradebot never trades on your behalf.`,
+    `This is an advisory signal, not an order. Punter never trades on your behalf.`,
   ].join("\n");
 
   const rationaleHtml = rationale
@@ -86,7 +86,7 @@ export function buildSignalAlertEmail({
 <html>
   <body style="margin:0;padding:24px;background:#0b0f17;color:#e5e7eb;font-family:Arial,Helvetica,sans-serif;">
     <div style="max-width:560px;margin:0 auto;background:#111827;border:1px solid #1f2937;border-radius:12px;padding:24px;">
-      <p style="margin:0 0 4px;font-size:12px;letter-spacing:1px;color:#9ca3af;text-transform:uppercase;">Tradebot high-conviction signal</p>
+      <p style="margin:0 0 4px;font-size:12px;letter-spacing:1px;color:#9ca3af;text-transform:uppercase;">Punter high-conviction signal</p>
       <h1 style="margin:0 0 16px;font-size:22px;color:${signal.direction === "long" ? "#34d399" : "#f87171"};">
         ${directionLabel} ${pair.display_name}
       </h1>
@@ -101,7 +101,7 @@ export function buildSignalAlertEmail({
       <h2 style="margin:20px 0 8px;font-size:14px;color:#e5e7eb;">Why this signal fired</h2>
       <ul style="margin:0 0 20px;padding-left:20px;font-size:13px;color:#d1d5db;">${rationaleHtml}</ul>
       <a href="${pairUrl}" style="display:inline-block;padding:10px 16px;background:#2563eb;color:#ffffff;border-radius:8px;text-decoration:none;font-size:14px;">View chart &amp; track record</a>
-      <p style="margin:20px 0 0;font-size:11px;color:#6b7280;">Advisory only - Tradebot never places orders. Signals are gated by backtested reliability for this pair and strategy.</p>
+      <p style="margin:20px 0 0;font-size:11px;color:#6b7280;">Advisory only - Punter never places orders. Signals are gated by backtested reliability for this pair and strategy.</p>
     </div>
   </body>
 </html>`;

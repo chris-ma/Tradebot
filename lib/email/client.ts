@@ -14,7 +14,7 @@ function getResendClient(): Resend {
   return cached;
 }
 
-const DEFAULT_FROM = "Tradebot <onboarding@resend.dev>";
+const DEFAULT_FROM = "Punter <onboarding@resend.dev>";
 
 /**
  * Sends the high-conviction signal alert email via Resend.

@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Tradebot",
+  title: "Punter",
   description:
     "Forex swing-trading advisory: low-temperature, backtest-gated confluence signals.",
 };
@@ -41,9 +41,9 @@ export default function RootLayout({
           <div className="mx-auto flex max-w-6xl items-center gap-8 px-6 py-4">
             <Link href="/" className="flex items-center gap-2">
               <span className="flex h-7 w-7 items-center justify-center rounded-md bg-blue-600 font-mono text-sm font-bold text-white">
-                T
+                P
               </span>
-              <span className="text-lg font-semibold tracking-tight">Tradebot</span>
+              <span className="text-lg font-semibold tracking-tight">Punter</span>
             </Link>
             <nav className="flex items-center gap-1 text-sm">
               {navItems.map((item) => (
@@ -60,7 +60,7 @@ export default function RootLayout({
         </header>
         <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-8">{children}</main>
         <footer className="border-t border-zinc-200 py-4 text-center text-xs text-zinc-500 dark:border-zinc-800 dark:text-zinc-500">
-          Advisory signals only - Tradebot never places orders.
+          Advisory signals only - Punter never places orders.
         </footer>
       </body>
     </html>
